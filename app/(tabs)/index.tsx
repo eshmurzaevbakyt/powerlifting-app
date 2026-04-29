@@ -9,7 +9,7 @@ export default function Index() {
       <View style={styles.statsContainer}>
         <View style={styles.statBox}>
           <Text style={styles.statNumber}>0</Text>
-          <Text style={styles.statLabel}>Присед</Text>
+          <Text style={styles.statLabel}>Тяга</Text>
         </View>
         <View style={styles.statBox}>
           <Text style={styles.statNumber}>0</Text>
@@ -17,7 +17,7 @@ export default function Index() {
         </View>
         <View style={styles.statBox}>
           <Text style={styles.statNumber}>0</Text>
-          <Text style={styles.statLabel}>Тяга</Text>
+          <Text style={styles.statLabel}>Присед</Text>
         </View>
       </View>
 
