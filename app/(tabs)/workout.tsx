@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
-import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 type Set = {
   weight: number;
@@ -59,9 +59,24 @@ export default function Workout() {
 
   const allDone = sets.length > 0 && sets.every((s) => s.done);
 
-  const handleFinish = () => {
-    Alert.alert("Тренировка завершена! 💥", "Отличная работа. Результаты сохранены.");
+  const handleFinish = async () => {
+  const stored = await AsyncStorage.getItem("workoutHistory");
+  const history = stored ? JSON.parse(stored) : [];
+
+  const newEntry = {
+    date: new Date().toISOString().split("T")[0],
+    exercise: exercise?.name || "",
+    sets: sets,
+    totalVolume: sets
+      .filter((s) => s.done)
+      .reduce((sum, s) => sum + s.weight * s.reps, 0),
   };
+
+  history.unshift(newEntry);
+  await AsyncStorage.setItem("workoutHistory", JSON.stringify(history));
+
+  alert(`Тренировка завершена! 💥\nОбъём: ${newEntry.totalVolume} кг`);
+};
 
   if (!exercise) {
     return (
