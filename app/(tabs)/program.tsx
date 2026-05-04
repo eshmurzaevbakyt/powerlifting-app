@@ -1,12 +1,23 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Program() {
   const [isNovice, setIsNovice] = useState<boolean | null>(null);
   const [dayOption, setDayOption] = useState<string | null>(null);
-
+  
+  useEffect(() => {
+  const load = async () => {
+    const stored = await AsyncStorage.getItem("programSettings");
+    if (stored) {
+      const data = JSON.parse(stored);
+      setIsNovice(data.isNovice);
+      setDayOption(data.dayOption);
+    }
+  };
+  load();
+}, []);
   const handleStart = async () => {
     if (isNovice === null || !dayOption) {
       alert("Выбери уровень и дни тренировок");
@@ -39,6 +50,8 @@ export default function Program() {
     await AsyncStorage.setItem("programSettings", JSON.stringify(programSettings));
     await AsyncStorage.setItem("exerciseState", JSON.stringify(exerciseState));
 
+    console.log("Сохраняем программу:", programSettings);
+    console.log("Сохранено");
     router.replace("/(tabs)");
   };
 

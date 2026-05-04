@@ -51,7 +51,7 @@ const handleStart = async () => {
       </View>
 
       <View style={styles.inputGroup}>
-        <Text style={styles.label}>Максимум в тяге (кг)</Text>
+        <Text style={styles.label}>Максимум в приседе (кг)</Text>
         <TextInput
           style={styles.input}
           placeholder="например: 140"
@@ -75,7 +75,7 @@ const handleStart = async () => {
       </View>
 
       <View style={styles.inputGroup}>
-        <Text style={styles.label}>Максимум в приседе (кг)</Text>
+        <Text style={styles.label}>Максимум в тяге (кг)</Text>
         <TextInput
           style={styles.input}
           placeholder="например: 180"
